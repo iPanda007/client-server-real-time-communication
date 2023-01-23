@@ -1,9 +1,17 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import './navbar.css'
 import Notification from '../../img/notification.svg';
 import Message from '../../img/message.svg';
 import Setting from  '../../img/settings.svg'
-const Navbar = () => {
+const Navbar = ({socket}:any) => {
+    const [notifications,setNotifcations] = useState<any>([]);
+    useEffect(()=>{
+        socket.on('getNotification',(data:any)=>{
+            setNotifcations((prev:any)=>[...prev,data])
+            console.log(data)
+        })
+    },[socket])
+
   return (
     <div>
           <div className='navbar'>
